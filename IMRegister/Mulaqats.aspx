@@ -98,7 +98,7 @@
                 url: "ds/DostMulaqt",
                 contentType: "application/json",
                 success: function (data) {
-                    GridData = data;
+                    GridData = data.Data;
                     LoadData();
                     $(btnMahfoozAll).removeClass('.disabled');
                     $('#txtNaam').removeAttr("readonly");
@@ -156,7 +156,7 @@
             $(txtIndex).val($(obj).attr('id'));
             if (GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Halath == 3) {
 
-                $(dtTareekh).val(GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Tarekh);
+                $(dtTareekh).val(getDateForCal(GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Tarekh));
                 $(txtTafseel).val(GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Tafseel);
             }
             else {
@@ -278,8 +278,13 @@
             return s;
         }
         function getFormatedDate(dt) {
-            dtArry = dt.split('-');
-            return (dtArry[2] + '-' + dtArry[1] + '-' + dtArry[0]);
+            dtArry = dt.split(' ')[0].split('/');
+            return (dtArry[0] + '-' + dtArry[1] + '-' + dtArry[2]);
+        }
+
+        function getDateForCal(dt) {
+            dtArry = dt.split(' ')[0].split('/');
+            return (dtArry[2] + '-' + padDate(dtArry[1]) + '-' + padDate(dtArry[0]));
         }
 
 
@@ -319,7 +324,7 @@
                     <div class="modal-header">
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default" onclick="btnMahfoz_Click()" >محفوظ کریں </button>
+                                <button type="button" class="btn btn-default" onclick="btnMahfoz_Click()" >شامل کریں </button>
                             </div>
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-default" onclick="btnHazaf_Click()" >حذف کریں </button>

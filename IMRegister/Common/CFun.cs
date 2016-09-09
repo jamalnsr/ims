@@ -303,16 +303,20 @@ namespace IMRegister
                 else
                     return strValues[intIndex];
             }
-            else
+            else if (strDataType == "String")
             {
                 if (strValues[intIndex].Trim() == "")
                 {
                     return "null";
                 }
                 else
-                    return "'" + strValues[intIndex] + "'";
+                    return "N'" + strValues[intIndex] + "'";
+            }
+            else {
+                return "'" + strValues[intIndex] + "'";
             }
         }
+        
 
         private static DataTable GetTableStructure(string strTableName)
         {

@@ -31,7 +31,7 @@ namespace IMRegister.Controllers
             foreach (clsDost oDost in oSarif.lstDost)
             {
                 SaveDost(oDost, oSarif.Id);
-                foreach (clsDostMulaqat oMulaqat in oDost.lstMulaqat)
+                foreach (clsDostMulaqat oMulaqat in oDost.lstMulaqat.Where(Row=> Row.Halath != "0" && Row.Halath !="3"))
                 {
                     SaveMulaqat(oMulaqat, oSarif.Id, oDost.Id);
                 }
@@ -45,8 +45,8 @@ namespace IMRegister.Controllers
         
         private void SaveMulaqat(clsDostMulaqat oMulaqat, String SarifID, String DostId)
         {
-            if (oMulaqat.Halath == "0" || oMulaqat.Halath == "3")
-                return;
+            //if (oMulaqat.Halath == "0" || oMulaqat.Halath == "3")
+            //    return;
 
             if (oMulaqat.Halath == "4")
             {

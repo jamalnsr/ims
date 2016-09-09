@@ -158,6 +158,7 @@
     <Compile Include="Controllers\DostMulaqtController.cs" />
     <Compile Include="DataAccessLayer\clsResult.cs" />
     <Compile Include="DataAccessLayer\DBManager.cs" />
+    <Compile Include="DataAccessLayer\DBManager_SQLITE.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
