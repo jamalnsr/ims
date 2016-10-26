@@ -279,12 +279,14 @@
         }
         function getFormatedDate(dt,type) {
             if (type==1){
-                dtArry = dt.split('/');
+                dtArry = dt.split('-');
+                return (dtArry[2] + '-' + dtArry[1] + '-' + dtArry[0]);
             }
             else{
-                dtArry = dt.split(' ')[0].split('/'); 
+                dtArry = dt.split(' ')[0].split('/');
+                return (dtArry[0] + '-' + dtArry[1] + '-' + dtArry[2]);
             }
-            return (dtArry[0] + '-' + dtArry[1] + '-' + dtArry[2]);
+            
         }
 
         function getDateForCal(dt) {

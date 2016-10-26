@@ -109,7 +109,7 @@ namespace DAL
                  }.ConnectionString;*/
 
                 var uriString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
-                var uri = new Uri(uriString);
+                /*var uri = new Uri(uriString);
                 var connectionString = new SqlConnectionStringBuilder
                 {
                     DataSource = uri.Host,
@@ -117,10 +117,9 @@ namespace DAL
                     UserID = uri.UserInfo.Split(':').First(),
                     Password = uri.UserInfo.Split(':').Last(),
                 }.ConnectionString;
+                */
 
-
-                //String connectionString = @"Server=.;Database=IMRegister;User Id=sa;Password=admin@123;";
-                //constr = ConfigurationManager.ConnectionStrings["ZaaSConString"].ToString();
+                String connectionString = @"Server=.;Database=IMRegister;User Id=sa;Password=admin@123;";
                 dbConnection = new SqlConnection(connectionString);
                 dbCommand = new SqlCommand("", dbConnection);
             }
