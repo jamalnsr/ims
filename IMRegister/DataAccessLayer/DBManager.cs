@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -98,7 +99,17 @@ namespace DAL
                                         + @";Version=3;New=False;Compress=True;";*/
 
 
-                var uri = new Uri("sqlserver://wiletrmgcfgrlwwe:NPXJQ8UXoSW8J2SXsLHpZsQW5jAnqVJBBN2Zzg32FL4c3EMnByxXsLru7aNEFFGz@499436a0-4c2d-4186-b01b-a67b00fd9072.sqlserver.sequelizer.com/db499436a04c2d4186b01ba67b00fd9072");
+                /* var uri = new Uri("sqlserver://wiletrmgcfgrlwwe:NPXJQ8UXoSW8J2SXsLHpZsQW5jAnqVJBBN2Zzg32FL4c3EMnByxXsLru7aNEFFGz@499436a0-4c2d-4186-b01b-a67b00fd9072.sqlserver.sequelizer.com/db499436a04c2d4186b01ba67b00fd9072");
+                 var connectionString = new SqlConnectionStringBuilder
+                 {
+                     DataSource = uri.Host,
+                     InitialCatalog = uri.AbsolutePath.Trim('/'),
+                     UserID = uri.UserInfo.Split(':').First(),
+                     Password = uri.UserInfo.Split(':').Last(),
+                 }.ConnectionString;*/
+
+                var uriString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
+                var uri = new Uri(uriString);
                 var connectionString = new SqlConnectionStringBuilder
                 {
                     DataSource = uri.Host,
@@ -106,7 +117,9 @@ namespace DAL
                     UserID = uri.UserInfo.Split(':').First(),
                     Password = uri.UserInfo.Split(':').Last(),
                 }.ConnectionString;
-                 
+
+
+                //String connectionString = @"Server=.;Database=IMRegister;User Id=sa;Password=admin@123;";
                 //constr = ConfigurationManager.ConnectionStrings["ZaaSConString"].ToString();
                 dbConnection = new SqlConnection(connectionString);
                 dbCommand = new SqlCommand("", dbConnection);

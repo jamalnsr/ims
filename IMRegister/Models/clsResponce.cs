@@ -9,6 +9,7 @@ namespace IMRegister.Models
     {
         public ResponseCode Code { get; set; }
         public String Description { get; set; }
+        public String Token { get; set; }
         public object Data { get; set; }
 
         public clsResposce()
@@ -18,6 +19,7 @@ namespace IMRegister.Models
     }
     public enum ResponseCode {
         Success = 0,
-        Error = 1
+        Error = 1,
+        LoginFailed=2
     };
 }

@@ -151,7 +151,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\CFun.cs" />
+    <Compile Include="Common\DataEncryptor.cs" />
+    <Compile Include="Common\WebSession.cs" />
     <Compile Include="Controllers\DostMulaqtController.cs" />
+    <Compile Include="Controllers\SarifController.cs" />
     <Compile Include="DataAccessLayer\clsResult.cs" />
     <Compile Include="DataAccessLayer\DBManager.cs" />
     <Compile Include="Global.asax.cs">
@@ -211,7 +214,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>33637</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -28,6 +28,7 @@ namespace IMRegister.Controllers
         [HttpPost]
         public clsResposce updateMulaqats([FromBody] clsSarif oSarif)
         {
+ 
             foreach (clsDost oDost in oSarif.lstDost)
             {
                 SaveDost(oDost, oSarif.Id);
@@ -41,57 +42,6 @@ namespace IMRegister.Controllers
             oRes.Data = GetSarifData();
 
             return oRes;
-        }
-        
-        private void SaveMulaqat(clsDostMulaqat oMulaqat, String SarifID, String DostId)
-        {
-            //if (oMulaqat.Halath == "0" || oMulaqat.Halath == "3")
-            //    return;
-
-            if (oMulaqat.Halath == "4")
-            {
-                DeleteMulaqat(oMulaqat);
-            }
-            else {
-                if (oMulaqat.Halath == ((int)Halath.Edited).ToString())
-                {
-                    CFun.fnSaveData(oMulaqat.Id, "Mulaqatain",
-                                   new string[] { "Tarekh", "Tafseel" },
-                                   new string[] { oMulaqat.Tarekh, oMulaqat.Tafseel },
-                                   "Id = " + oMulaqat.Id
-                           );
-                }
-                else
-                {
-                    CFun.fnSaveData(oMulaqat.Id, "Mulaqatain",
-                                       new string[] { "SarifId", "DostId", "Tarekh", "Tafseel" },
-                                       new string[] { SarifID, DostId, oMulaqat.Tarekh, oMulaqat.Tafseel }
-                               ); 
-                }
-            }
-        }
-        private void DeleteMulaqat(clsDostMulaqat oMulaqat)
-        {
-            DAL.DBManager.ExecuteQuery("delete from Mulaqatain where id = " + oMulaqat.Id);
-        }
-        private void SaveDost(clsDost oDost,String SarifID)
-        {
-            if (oDost.Halath == ((int)Halath.Edited).ToString())
-            {
-                CFun.fnSaveData(oDost.Id, "Dost",
-                                new string[] { "Naam", "Tafseel", "Hasiath" },
-                                new string[] { oDost.Naam, oDost.Tafseel, oDost.Hasiath },
-                                "Id = " + oDost.Id
-                        ); 
-            }
-            else if(oDost.Halath == ((int)Halath.New).ToString())
-            {
-                oDost.Id =  CFun.fnSaveData(oDost.Id, "Dost",
-                                 new string[] { "Naam", "Tafseel", "Hasiath", "SarifId" },
-                                 new string[] { oDost.Naam, oDost.Tafseel, oDost.Hasiath, SarifID }
-                         ).AdditionalInfo;
-                
-            }
         }
         #endregion
 
@@ -152,6 +102,56 @@ namespace IMRegister.Controllers
             }
             oSarif.Columns += 4;
             return oSarif;
+        }
+        private void SaveMulaqat(clsDostMulaqat oMulaqat, String SarifID, String DostId)
+        {
+            //if (oMulaqat.Halath == "0" || oMulaqat.Halath == "3")
+            //    return;
+
+            if (oMulaqat.Halath == "4")
+            {
+                DeleteMulaqat(oMulaqat);
+            }
+            else {
+                if (oMulaqat.Halath == ((int)Halath.Edited).ToString())
+                {
+                    CFun.fnSaveData(oMulaqat.Id, "Mulaqatain",
+                                   new string[] { "Tarekh", "Tafseel" },
+                                   new string[] { oMulaqat.Tarekh, oMulaqat.Tafseel },
+                                   "Id = " + oMulaqat.Id
+                           );
+                }
+                else
+                {
+                    CFun.fnSaveData(oMulaqat.Id, "Mulaqatain",
+                                       new string[] { "SarifId", "DostId", "Tarekh", "Tafseel" },
+                                       new string[] { SarifID, DostId, oMulaqat.Tarekh, oMulaqat.Tafseel }
+                               );
+                }
+            }
+        }
+        private void DeleteMulaqat(clsDostMulaqat oMulaqat)
+        {
+            DAL.DBManager.ExecuteQuery("delete from Mulaqatain where id = " + oMulaqat.Id);
+        }
+        private void SaveDost(clsDost oDost, String SarifID)
+        {
+            if (oDost.Halath == ((int)Halath.Edited).ToString())
+            {
+                CFun.fnSaveData(oDost.Id, "Dost",
+                                new string[] { "Naam", "Tafseel", "Hasiath" },
+                                new string[] { oDost.Naam, oDost.Tafseel, oDost.Hasiath },
+                                "Id = " + oDost.Id
+                        );
+            }
+            else if (oDost.Halath == ((int)Halath.New).ToString())
+            {
+                oDost.Id = CFun.fnSaveData(oDost.Id, "Dost",
+                                 new string[] { "Naam", "Tafseel", "Hasiath", "SarifId" },
+                                 new string[] { oDost.Naam, oDost.Tafseel, oDost.Hasiath, SarifID }
+                         ).AdditionalInfo;
+
+            }
         }
         #endregion
     }

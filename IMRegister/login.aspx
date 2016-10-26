@@ -31,23 +31,55 @@
         }
     </style>
     <script type="text/javascript">
-        function signInClick() { 
+        function checkTextBoxes(){
+            var chk=true;
             $("#login").removeClass("has-error");
             $("#password").removeClass("has-error");
 
             if ($("#login").val() == "") { 
                 $("#login").addClass("has-error");
+                chk=false;
             }
 
             if ($("#password").val() == "") { 
                 $("#password").addClass("has-error");
+                chk=false;
             }
-
+            return chk;
         }
+
+        function signInClick() {
+
+            if(!checkTextBoxes())
+                return;
+
+            $(btnLogin).addClass('.disabled');
+           
+            $.ajax({
+                type: "GET", 
+                url: "ds/Sarif/"+$("#login").val() + "ß" + $("#password").val(),
+                success: function (data) {
+                    if(data.ErrorCode === "0"){
+                        $(location).attr('href', 'Mulaqats.aspx?kxk='+data.Token)
+                    }
+                    else{
+                        alert(data.Description)
+                    }
+                    GridData = data.Data;
+                    LoadData();
+                    $(btnMahfoozAll).removeClass('.disabled');
+                    $('#txtNaam').removeAttr("readonly");
+                },
+                error:function () {
+                    alert('error');
+                }
+            });  
+        }
+
+             
     </script>
 </head>
 <body>
-    <form >
     <div class="loginMainDiv">
         <div class="loginImageDiv"  >
             <img src="Images/chand.png" />
@@ -72,14 +104,12 @@
                 </div>
             </div>
             <div class="button-holder " style="margin-top: 5px">
-                <button class="btn  btn-default col-lg-12" type="submit" runat="server" 
-                    onclick="return signInClick(); return false;">
+                <button class="btn  btn-default col-lg-12" type="submit" runat="server" id="btnLogin"
+                    onclick="signInClick()">
                     آغاز کریں
                 </button>
                   </div>
         </div>
     </div>
-
-</form>
 </body>
 </html>

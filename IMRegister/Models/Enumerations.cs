@@ -9,6 +9,20 @@ namespace IMRegister
     {
     }
 
+    enum UserStatus {
+        RequestPending = 0 ,
+        Active  = 1 ,
+        Locked = 2,
+        RequestRejected =3
+    }
+
+    enum UserType
+    {
+        Admin=1,
+        User=2
+    }
+
+
     enum Halath {
         Not_In_Use=0,
         New       =1,

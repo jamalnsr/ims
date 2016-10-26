@@ -193,7 +193,7 @@
             }
         }
 
-        function btnMahfoz_Click() {
+        function btnShamil_Click() {
             if ($(txtNaam).val() == '') {
                 $(txtNaam).addClass("TextBoxError");
                 return;
@@ -228,7 +228,7 @@
                     GridData.lstDost[cel[0]].lstMulaqat[i].Halath = 2;
                 }
 
-                $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(Number(i) + 1).text(getFormatedDate($(dtTareekh).val()));
+                $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(Number(i) + 1).text(getFormatedDate($(dtTareekh).val(),1));
                 $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(0).find('input').val($(txtNaam).val());
                 $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(0).find('input').focus();
 
@@ -277,8 +277,13 @@
             if (s.length === 1) s = '0' + s;
             return s;
         }
-        function getFormatedDate(dt) {
-            dtArry = dt.split(' ')[0].split('/');
+        function getFormatedDate(dt,type) {
+            if (type==1){
+                dtArry = dt.split('/');
+            }
+            else{
+                dtArry = dt.split(' ')[0].split('/'); 
+            }
             return (dtArry[0] + '-' + dtArry[1] + '-' + dtArry[2]);
         }
 
@@ -324,7 +329,7 @@
                     <div class="modal-header">
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default" onclick="btnMahfoz_Click()" >شامل کریں </button>
+                                <button type="button" class="btn btn-default" onclick="btnShamil_Click()" >شامل کریں </button>
                             </div>
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-default" onclick="btnHazaf_Click()" >حذف کریں </button>

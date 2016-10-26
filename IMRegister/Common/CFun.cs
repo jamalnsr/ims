@@ -360,9 +360,9 @@ namespace IMRegister
         {
             System.Text.UnicodeEncoding encoding = new System.Text.UnicodeEncoding();
             return encoding.GetBytes(str);
-        }
+        } 
         #endregion
-         
+
         #region Logging
 
         /// <summary>
