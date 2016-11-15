@@ -11,7 +11,13 @@ namespace IMRegister
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Request["kxk"] != null)
+            {
+                if (WebSession.Session.ContainsKey(Request["kxk"]))
+                {
+                    WebSession.Session.Remove(Request["kxk"]);
+                }
+            }
         }
     }
 }

@@ -63,21 +63,7 @@
     <script type="text/javascript">
         var GridData = '';
         var token = '<%=Request["kxk"] %>';
-        $(document).ready(function () {
-            /*$.get('ds/DostMulaqt/' + tocken)
-                     .success(function (data, status, headers, config) {
-                         if (data.Code == 0) {
-                             GridData = data.Data;
-                             LoadData();
-                         }
-                         else {
-                             $(divAlert).addClass("");
-                             $(lblAlertMessage).val('')
-                         }
-                     })
-                     .error(function (data, status, header, config) {
-                         alert('error')
-                     });*/
+        $(document).ready(function () { 
             $.ajax({
                 type: "GET",
                 url: 'ds/DostMulaqt/getMulaqats/'+token,
@@ -325,7 +311,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">لاگ آوٹ</a></li> 
+                    <li><a href="/Login.aspx?kxk=<%=Request["kxk"]%>">لاگ آوٹ</a></li> 
                 </ul>
             </div>
         </div>
