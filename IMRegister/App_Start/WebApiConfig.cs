@@ -16,7 +16,7 @@ namespace IMRegister
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "ds/{controller}/{id}",
+                routeTemplate: "ds/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

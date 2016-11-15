@@ -62,9 +62,9 @@
 
     <script type="text/javascript">
         var GridData = '';
-
+        var token = '<%=Request["kxk"] %>';
         $(document).ready(function () {
-            $.get('ds/DostMulaqt')
+            /*$.get('ds/DostMulaqt/' + tocken)
                      .success(function (data, status, headers, config) {
                          if (data.Code == 0) {
                              GridData = data.Data;
@@ -77,7 +77,25 @@
                      })
                      .error(function (data, status, header, config) {
                          alert('error')
-                     });
+                     });*/
+            $.ajax({
+                type: "GET",
+                url: 'ds/DostMulaqt/getMulaqats/'+token,
+                contentType: "application/json",
+                success: function (data) {
+                    if (data.Code == 0) {
+                        GridData = data.Data;
+                        LoadData();
+                    }
+                    else {
+                        $(divAlert).addClass("");
+                        $(lblAlertMessage).val('');
+                    }
+                },
+                error: function (data, status, header, config) {
+                    alert('error');
+                }
+            });
 
             $('#txtNaam').blur(function () {
                 if ($(txtNaam).val() == '') {
@@ -95,7 +113,7 @@
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(GridData),
-                url: "ds/DostMulaqt",
+                url: "ds/DostMulaqt/updateMulaqats",
                 contentType: "application/json",
                 success: function (data) {
                     GridData = data.Data;
@@ -222,18 +240,17 @@
             GridData.lstDost[cel[0]].lstMulaqat[i].Tafseel = $(txtTafseel).val();
 
             if (GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Halath == 0 || GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Halath == 1) {
-                GridData.lstDost[cel[0]].lstMulaqat[i].Halath = 1; if (GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Halath == 0 || GridData.lstDost[cel[0]].lstMulaqat[cel[1]].Halath == 1) {
-                }
-                else {
-                    GridData.lstDost[cel[0]].lstMulaqat[i].Halath = 2;
-                }
-
-                $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(Number(i) + 1).text(getFormatedDate($(dtTareekh).val(),1));
-                $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(0).find('input').val($(txtNaam).val());
-                $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(0).find('input').focus();
-
-                $('#divMulaqat').modal('toggle');
+                GridData.lstDost[cel[0]].lstMulaqat[i].Halath = 1;
             }
+            else {
+                GridData.lstDost[cel[0]].lstMulaqat[i].Halath = 2;
+            }
+
+            $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(Number(i) + 1).text(getFormatedDate($(dtTareekh).val(), 1));
+            $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(0).find('input').val($(txtNaam).val());
+            $('#DataGrid tr').eq(Number(cel[0]) + 1).find('td').eq(0).find('input').focus();
+
+            $('#divMulaqat').modal('toggle');
         }
 
         function btnHazaf_Click()
@@ -284,14 +301,14 @@
             }
             else{
                 dtArry = dt.split(' ')[0].split('/');
-                return (dtArry[0] + '-' + dtArry[1] + '-' + dtArry[2]);
+                return (dtArry[1] + '-' + dtArry[0] + '-' + dtArry[2]);
             }
             
         }
 
         function getDateForCal(dt) {
             dtArry = dt.split(' ')[0].split('/');
-            return (dtArry[2] + '-' + padDate(dtArry[1]) + '-' + padDate(dtArry[0]));
+            return (dtArry[2] + '-' + padDate(dtArry[0]) + '-' + padDate(dtArry[1]));
         }
 
 

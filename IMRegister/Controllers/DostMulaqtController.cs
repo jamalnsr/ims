@@ -17,11 +17,16 @@ namespace IMRegister.Controllers
     {
         #region Services
         [HttpGet]        
-        public clsResposce getMulaqats()
+        public clsResposce getMulaqats( String  id)
         {
-            clsResposce oRes = new clsResposce();
-            oRes.Data = GetSarifData();
-
+            clsResposce oRes = new clsResposce();            
+            if (WebSession.Session.ContainsKey(id))
+            { 
+                oRes.Data = GetSarifData(id);
+            }
+            else {
+                oRes.Code = ResponseCode.LoginFailed;
+            }
             return oRes;
         }
         
@@ -39,14 +44,14 @@ namespace IMRegister.Controllers
             }
 
             clsResposce oRes = new clsResposce();
-            oRes.Data = GetSarifData();
+            oRes.Data = GetSarifData(oSarif.Id);
 
             return oRes;
         }
         #endregion
 
         #region Operations
-        private static clsSarif GetSarifData()
+        private static clsSarif GetSarifData(String id)
         {
             DataTable dtResult = DAL.DBManager.GetDataTable(String.Format(
                             @"  SELECT * 
@@ -54,8 +59,8 @@ namespace IMRegister.Controllers
 		                                 DOST ON (Sarif.id = Dost.SarifId) LEFT OUTER JOIN  
 		                                 Mulaqatain on (Dost.Id = Mulaqatain.DostId)
                                     WHERE Sarif.id ={0}
-                                    ORDER BY Sarif.id Asc,Dost.id Asc,Mulaqatain.Tarekh desc",
-                              "1"));
+                                    ORDER BY Sarif.id Asc,Dost.id Asc,Mulaqatain.Tarekh asc",
+                              id));
 
             clsSarif oSarif = new clsSarif();
             oSarif.Id = dtResult.Rows[0]["Id"].ToString();

@@ -56,19 +56,15 @@
             $(btnLogin).addClass('.disabled');
            
             $.ajax({
-                type: "GET", 
-                url: "ds/Sarif/"+$("#login").val() + "ß" + $("#password").val(),
+                type: "POST", 
+                url: "ds/Sarif/Login/" + $("#login").val() + "ß" + $("#password").val(),
                 success: function (data) {
-                    if(data.ErrorCode === "0"){
-                        $(location).attr('href', 'Mulaqats.aspx?kxk='+data.Token)
+                    if(data.Code === 0){
+                        $(location).attr('href', 'Mulaqats.aspx?kxk=' + data.Token);
                     }
                     else{
                         alert(data.Description)
                     }
-                    GridData = data.Data;
-                    LoadData();
-                    $(btnMahfoozAll).removeClass('.disabled');
-                    $('#txtNaam').removeAttr("readonly");
                 },
                 error:function () {
                     alert('error');
