@@ -13,7 +13,7 @@ namespace IMRegister.Controllers
     {
         #region Services
         [HttpPost]
-        public clsResposce Login(String id)
+        public clsResposce Login( String id)
         {
             clsResposce oRes = new clsResposce();
             oRes.Data = id;
@@ -25,7 +25,7 @@ namespace IMRegister.Controllers
             {
                 oRes.Code = ResponseCode.Error;
                 oRes.Description = ex.Message;
-
+                 
             }
             return oRes;
         }
@@ -33,15 +33,15 @@ namespace IMRegister.Controllers
 
         private bool CheckeCredentials(clsResposce oRes)
         {
-            DataTable dt = DAL.DBManager.GetDataTable(
+            DataTable dt =  DAL.DBManager.GetDataTable(
                 String.Format("select id,naam, username,ShanakhtiLafz,Status from sarif where username=N'{0}' and ShanakhtiLafz=N'{1}'",
-                                oRes.Data.ToString().Split('ß')[0], oRes.Data.ToString().Split('ß')[1]));
-
-            if (dt.Rows.Count == 1 &&
-               oRes.Data.ToString().Split('ß')[0] == dt.Rows[0]["username"].ToString() &&
+                                oRes.Data.ToString().Split('ß' )[0], oRes.Data.ToString().Split('ß')[1]));
+            
+            if(dt.Rows.Count == 1 &&
+               oRes.Data.ToString().Split('ß')[0] == dt.Rows[0]["username"].ToString() && 
                oRes.Data.ToString().Split('ß')[1] == dt.Rows[0]["ShanakhtiLafz"].ToString())
             {
-                if (dt.Rows[0]["Status"].ToString() == ((int)UserStatus.Locked).ToString())
+                if(dt.Rows[0]["Status"].ToString() == ((int)UserStatus.Locked).ToString())
                 {
                     oRes.Code = ResponseCode.LoginFailed;
                     oRes.Description = "آپ کا اکاونٹ عارضی طور پر بند ہے۔ ایڈمن سے رابطہ کریں۔";
@@ -57,11 +57,11 @@ namespace IMRegister.Controllers
                     }
                     else
                     {
-                        WebSession.Session.Add(oRes.Token, new SessionDetails(oRes.Token, oRes.Token, dt.Rows[0]["naam"].ToString(), DateTime.Now));
+                       WebSession.Session.Add(oRes.Token,new SessionDetails(oRes.Token, oRes.Token, dt.Rows[0]["naam"].ToString(), DateTime.Now));
                     }
                     return true;
                 }
-            }
+            } 
             else
             {
                 oRes.Code = ResponseCode.LoginFailed;

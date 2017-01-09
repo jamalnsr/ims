@@ -318,11 +318,11 @@
 
         <div class="title">   ملاقات رجسٹر </div>
 
-       <!-- <div id="divAlert" class="alert alert-dismissible" role="alert">
+        <div id="divAlert" class="alert alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <lable id="lblAlertMessage"/>
         </div>
-        -->
+        
 
         <div id="dtGrid" style="margin-top:45px auto;"></div>
 

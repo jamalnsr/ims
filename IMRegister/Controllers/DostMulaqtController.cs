@@ -22,7 +22,7 @@ namespace IMRegister.Controllers
             clsResposce oRes = new clsResposce();            
             if (WebSession.Session.ContainsKey(id))
             {
-                WebSession.Session[id] = DateTime.Now;
+                //WebSession.Session[id] = DateTime.Now;
                 oRes.Data = GetSarifData(id);
             }
             else {
