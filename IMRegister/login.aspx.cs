@@ -11,12 +11,15 @@ namespace IMRegister
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request["kxk"] != null)
+            if (IsPostBack)
+                return;
+
+            if (Request["kxk"] == null)
+                return;
+
+            if (WebSession.Session.ContainsKey(Request["kxk"]))
             {
-                if (WebSession.Session.ContainsKey(Request["kxk"]))
-                {
-                    WebSession.Session.Remove(Request["kxk"]);
-                }
+                WebSession.Session.Remove(Request["kxk"]);
             }
         }
     }
